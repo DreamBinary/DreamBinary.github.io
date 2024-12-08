@@ -217,7 +217,7 @@ colorList 就是我们的颜色列表用来展示和选择的。这里的注释�
 
 ---
 
-# 三、<a id="index">完整代码</a>
+# 三、<span id="index">完整代码</span>
 
 记得添加 MMKV 依赖
 

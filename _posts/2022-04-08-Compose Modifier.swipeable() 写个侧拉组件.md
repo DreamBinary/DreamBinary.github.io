@@ -220,7 +220,7 @@ fun Main() {
 
 ---
 
-# 三、<a id="index">完整代码</a>
+# 三、<span id="index">完整代码</span>
 这里放上核心代码，里面带有注释来解释：
 ```kotlin
 import androidx.compose.animation.AnimatedVisibility

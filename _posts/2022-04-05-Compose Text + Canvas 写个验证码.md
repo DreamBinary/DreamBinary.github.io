@@ -288,7 +288,7 @@ viewModel 在 activity 中构建后传入，在使用 TextField 我遇到过输�
 到这我们功能也实现啦。
 
 ---
-# 四、<a id="index">完整代码</a>
+# 四、<span id="index">完整代码</span>
 这里就放一下核心的代码，就不往 Github 上放了：
 
 ```kotlin
