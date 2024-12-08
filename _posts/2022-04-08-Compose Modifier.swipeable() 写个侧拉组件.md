@@ -6,13 +6,13 @@ tags: [ Android ]
 ---
 # 前言
 大家使用 QQ 的时候，肯定见过它：
-![[assets/652654655e9d6360bd4f99639509f54b_MD5.jpg]]
+![img](./assets/post_img/652654655e9d6360bd4f99639509f54b_MD5.jpg)
 这次，我想用 Compose 来写一个类似的，大家可以和我一步步来，也可以直接看[完整代码](#index)。
 
 ---
 
 # 一、工具选择
-在 Compose 里有 SwipeToDismiss、Modifier.swipeable () 两种供我们使用， SwipeToDismiss 的底层使用 swipeable 实现的，使用的时候侧拉会占满一整行，像这样：![[assets/46f30594495dda1e838a7a2a7b75fd06_MD5.gif]]
+在 Compose 里有 SwipeToDismiss、Modifier.swipeable () 两种供我们使用， SwipeToDismiss 的底层使用 swipeable 实现的，使用的时候侧拉会占满一整行，像这样：![img](./assets/post_img/46f30594495dda1e838a7a2a7b75fd06_MD5.gif)
 和我们想做的不太一致，也和我们平常习惯用的不一样。所以就不使用它了，用 Modifier.swipeable ()  来实现。
 
 ---
@@ -212,11 +212,11 @@ fun Main() {
 ```
 效果展示：
 从右往左拉：
-![[assets/07a1ce5d6038520b01bb450ff6a7422d_MD5.gif]]
+![img](./assets/post_img/07a1ce5d6038520b01bb450ff6a7422d_MD5.gif)
 从左往右拉：
-![[assets/43755180ca6ac71ece0343e53847a912_MD5.gif]]
+![img](./assets/post_img/43755180ca6ac71ece0343e53847a912_MD5.gif)
 点击侧拉组件隐藏：
-![[assets/9a2a56d031d3e5995f124124d6159bf0_MD5.gif]]
+![img](./assets/post_img/9a2a56d031d3e5995f124124d6159bf0_MD5.gif)
 
 ---
 

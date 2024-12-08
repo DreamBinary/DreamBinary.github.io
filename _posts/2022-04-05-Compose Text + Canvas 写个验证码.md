@@ -10,16 +10,16 @@ tags: [ Android ]
 ---
 
 # 一、工具选择
-网上大部分都是用 paint 来实现的，但是在 Compose 里 paint 的属性好像有所减少，就比如 textSkewX 就没有（下为 Compose ）：![[assets/88458b38fa1061e38b9b6b9f6b1fd0c3_MD5.png]]
-![[assets/d2baed79c7520c8d2ca287894a120864_MD5.png]]
+网上大部分都是用 paint 来实现的，但是在 Compose 里 paint 的属性好像有所减少，就比如 textSkewX 就没有（下为 Compose ）：![img](./assets/post_img/88458b38fa1061e38b9b6b9f6b1fd0c3_MD5.png)
+![img](./assets/post_img/d2baed79c7520c8d2ca287894a120864_MD5.png)
 既然这样用 paint 就不大好了。最后想到，验证码一般包括字母和数字，那就直接用最简单的 Text 加 canvas 来呗。
 
 ---
 # 二、基本思想
 验证码最重要的是随机性，那我们如何做到随机呢？这不是很简单吗，用 Random 啊。那验证码的样式如何做到不同呢？这不是很简单吗，用 Random + 属性啊。所以我们只要罗列 Text 的属性，配上 Random 就能得到验证码的基本样式了：
-![[assets/0de08cf989759b5cac994ad21c0dd895_MD5.png]]
+![img](./assets/post_img/0de08cf989759b5cac994ad21c0dd895_MD5.png)
 那上面说到的 canvas 拿来干嘛呢，它其实是用来画干扰线的，最后的效果是这样的（应该还行）：
-![[assets/d34d48f12c27fb34a698d09de735871d_MD5.png]]
+![img](./assets/post_img/d34d48f12c27fb34a698d09de735871d_MD5.png)
 可能有更好的想法，但是我不会。下面我们来举一例讲讲具体实现。
 
 ---
@@ -94,7 +94,7 @@ Text(
     )
 ```
 下面是各个用到的属性的所有值，大家如果想看可以前往[完整代码](#index)先偷窥一下再回头来继续学习。
-![[assets/c82782c80ba44814f50e8e7db2ce1fb9_MD5.png]]
+![img](./assets/post_img/c82782c80ba44814f50e8e7db2ce1fb9_MD5.png)
 加上 Random ：
 
 ```kotlin
@@ -133,7 +133,7 @@ Text(
 )
 ```
 大家一定要注意加上 topLeft. x 和 topLeft. y，验证码不能老待在左上角吧。这里的 Code 是一个单例类：
-![[assets/5662eb121847b5f088ed2916c80aa4c3_MD5.png]]
+![img](./assets/post_img/5662eb121847b5f088ed2916c80aa4c3_MD5.png)
 用于封装方法便于使用。
 最后还要加上：
 
@@ -185,22 +185,22 @@ repeat(disturbLineNum) {
 }
 ```
 这里我们首先得到起点和终点的位置，之后 drawLine 就轻而易举了。这里面的注释大家还是要注意的，和 Text 一样 topLeft. x 和 topLeft. y 不能忘，不然要怎么干扰 Text 呢。还有一点使用时 disturbLineNum 千万不要设置太大，不然你就是为难用户：
-![[assets/6e758bd5cc1c95be7eaa8af59a8b2158_MD5.png]]
+![img](./assets/post_img/6e758bd5cc1c95be7eaa8af59a8b2158_MD5.png)
 这验证码是怕人看见了吗？
 
 ## 4、Code 单例类中的注意点
 在 getColor () 中的不透明度不能设置太小（我直接不设置），显示的不是很清楚，比如：
-![[assets/255bb51014ed7d309a4a8b53fc93c9be_MD5.png]]
+![img](./assets/post_img/255bb51014ed7d309a4a8b53fc93c9be_MD5.png)
 看的清吗？(好像可以哦)
 在 getColorList () 里面，random 的下限一定要大于 1，不然：
-![[assets/1140062832b6b8a94eec51f5878e259e_MD5.png]]
+![img](./assets/post_img/1140062832b6b8a94eec51f5878e259e_MD5.png)
 红红的可怕吗？
 这里是因为 Brush.linearGradient () 要求要有两种以上的颜色，不然和 Color 纯色有什么区别。
 对 Code 单例类好奇，可以先去[完整代码](#index) 看看再回头来继续学习，其实也差不多结束了。
 另外，在 Code 单例类里面的 dp 、sp 、px 的转换大家可以学习一下，在此之前我还不会呢。
 ## 5、初步测试
 到这里我们已经可以得到验证码的样子了，只是还没有功能，我们下一步再实现，先来测试一下传参之后能否使用：
-![[assets/06f83fe9c258d740a582d26e58040934_MD5.png]]
+![img](./assets/post_img/06f83fe9c258d740a582d26e58040934_MD5.png)
 很明显是没什么问题嘛，而且验证码还这么好看（WDBMNUM 1）。接着我们实现功能，毕竟验证码再好看也不是拿来看的嘛。
 ## 6、功能实现
 要实现验证功能我们先要保存验证码，我们可以用 ViewModel 进行储存随机生成的验证码，随机生成的验证码要连成字符串，这样做：
@@ -278,11 +278,11 @@ fun Main(viewModel: MyViewModel) {
 }
 ```
 viewModel 在 activity 中构建后传入，在使用 TextField 我遇到过输入不能显示的问题，有兴趣可以移步 [Compose | TextField 无法显示输入内容](https://blog.csdn.net/WdbM_/article/details/123968236)看看，最好可以帮我解答一下，哈哈。看看我们的结果吧：
-![[assets/23e0aaef53ccb2a96be81d808e9fd634_MD5.gif]]
+![img](./assets/post_img/23e0aaef53ccb2a96be81d808e9fd634_MD5.gif)
 最后还有一个功能，就是我们平常都能看到点击验证码会给一个新的验证码。这要怎么实现呢？这不是很简单吗，利用 Compose 的响应式编程啊，像这样：
-![[assets/d38efc3d34acf2a01fe9c488bee80fa5_MD5.png]]
+![img](./assets/post_img/d38efc3d34acf2a01fe9c488bee80fa5_MD5.png)
 和点击有关的加上括号一共也就 7 行，这么短能实现吗，我们看看结果：
-![[assets/eef6307e24ce460bf62742c774e842cf_MD5.gif]]
+![img](./assets/post_img/eef6307e24ce460bf62742c774e842cf_MD5.gif)
 敢放出来当然能实现啦。这里要注意最后面的 flag 虽然像旗一样插在那什么都没干，但是我们不能删去它，它就是响应式编程的精髓，当程序检测到它变化时就会进行重绘。这里的 remember 和 mutableStateOf 要是不懂可以看看我另一篇文章 [Compose | remember、mutableStateOf的使用](https://blog.csdn.net/WdbM_/article/details/123922729)比较基础，要是写的不好也请指教。
 
 到这我们功能也实现啦。

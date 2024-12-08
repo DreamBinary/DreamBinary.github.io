@@ -11,7 +11,7 @@ tags: [ Android ]
 
 # 一、最终效果
 
-![[assets/2f767dfb3805614e2f3f560fcce8093c_MD5.gif]]
+![img](./assets/post_img/2f767dfb3805614e2f3f560fcce8093c_MD5.gif)
 这里简单的模拟了一下主题色的更换，可以看到颜色更换和持久化保存都没问题。
 
 ---
@@ -66,7 +66,7 @@ fun ColorPicker(
 这里传入三个参数，colorList 是所有颜色的一个列表，currentShowColor 是当前展示的颜色（即效果展示中的背景色），onColorConfirm
 是确认更换颜色在后边会用到。颜色以 LazyVerticalGrid 加 Surface 进行展现，这里要注意在 modifier 加上 .aspectRatio (1 f)
 即宽高比，否则你的效果会是这样的：
-![[assets/47758f3d964311f6ccb15cb8073e8abb_MD5.png]]
+![img](./assets/post_img/47758f3d964311f6ccb15cb8073e8abb_MD5.png)
 Icon 则用来标记选中或点击了哪个颜色， currentColor 用于触发它的重绘。除此以外，还有一个点要注意在新版中上面这种
 LazyVerticalGrid 已经被弃用，可以用下面这种代替（大体一样）：
 
@@ -170,7 +170,7 @@ fun Test(
 这里 showDialogState 用于控制对话框的显隐，currentColorIndex 作为确认按钮和颜色选择直接的中间商，帮忙暂时存一下。另外这里要实现开头那样的效果的话不应该直接将
 showColor: MutableState<Color> 传入 ColorPicker
 （我之前就是这么干的）。如果将它传入并用它来更换颜色的话，我们点击一个颜色它就变成了那个颜色，这样的话确认按钮就可以删掉了。其实这样也挺好，有的软件就是这样干的。看看这样的效果：
-![[assets/d81eaa83d1825fae45752847af8dffeb_MD5.gif]]
+![img](./assets/post_img/d81eaa83d1825fae45752847af8dffeb_MD5.gif)
 从代码中可以看到这里用了一个 SpMMKVUtil 来持久化，它是封装了 MMKV 的一个工具，（ MMKV 是一个轻量级高效存储数据库，腾讯开发的哦，存储读写效率高，
 最近刚学就用了一下），推荐大家也可以去学一下，网上教程一大把，这就不说了
 
@@ -212,7 +212,7 @@ class MainActivity : ComponentActivity () {
 ```
 
 colorList 就是我们的颜色列表用来展示和选择的。这里的注释应该要注意到，报错如下：
-![[assets/65f3a71cd666acdc34e73ed7713ca28d_MD5.png]]
+![img](./assets/post_img/65f3a71cd666acdc34e73ed7713ca28d_MD5.png)
 它只能在带有 @Composable 注释的时候才能用。所以用个 lazy 来解决一下。到这所以代码都讲完了。
 
 ---
