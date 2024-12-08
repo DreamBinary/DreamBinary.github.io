@@ -3,24 +3,22 @@ title: Compose Modifier.swipeable() 写个侧拉组件
 categories: [ Android ]
 tags: [ Android ]
 ---
-
-
 ---
 # 前言
 大家使用 QQ 的时候，肯定见过它：
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/43f365df34468ea5f2c64b7b287cb0ac.jpeg#pic_center)
+![[assets/652654655e9d6360bd4f99639509f54b_MD5.jpg]]
 这次，我想用 Compose 来写一个类似的，大家可以和我一步步来，也可以直接看[完整代码](#index)。
 
 ---
 
 # 一、工具选择
-在 Compose 里有 SwipeToDismiss、Modifier.swipeable() 两种供我们使用， SwipeToDismiss 的底层使用 swipeable 实现的，使用的时候侧拉会占满一整行，像这样：![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/be73361da0fd730f6f9d988fd159da9b.gif#pic_center)
-和我们想做的不太一致，也和我们平常习惯用的不一样。所以就不使用它了，用 Modifier.swipeable()  来实现。
+在 Compose 里有 SwipeToDismiss、Modifier.swipeable () 两种供我们使用， SwipeToDismiss 的底层使用 swipeable 实现的，使用的时候侧拉会占满一整行，像这样：![[assets/46f30594495dda1e838a7a2a7b75fd06_MD5.gif]]
+和我们想做的不太一致，也和我们平常习惯用的不一样。所以就不使用它了，用 Modifier.swipeable ()  来实现。
 
 ---
 
 # 二、具体实现
-## 1.方法定义
+## 1. 方法定义
 先看看最后方法的定义和它的参数：
 
 ```kotlin
@@ -56,7 +54,7 @@ enum class SwipeDirection {
 ```
 表示不同的两个方向。
 其他的看看注释应该就懂了。
-## 2.变量准备
+## 2. 变量准备
 
 ```kotlin
 // 记录一下滑动方向, 便于下面的判断
@@ -74,8 +72,8 @@ Row(modifier = modifier) {
 	...主体内容和侧拉内容...
 }
 ```
-这里我们定义了一些量，为下面的滑动、侧拉组件显示做准备。要注意的是 dx 的值，因为左拉和右拉的偏移量要与 swipeState 的 true 对应，当偏移距离为 swipeItemWidth 时 swipeState 的 value 就会变成 true，swipeState 的 value 我们会用到侧拉组件的显示与否中去。这里的 anchors 我们一会用到 swipeable() 中去。接下来我们往里填充体内容和侧拉内容就行了。
-## 3.主体内容
+这里我们定义了一些量，为下面的滑动、侧拉组件显示做准备。要注意的是 dx 的值，因为左拉和右拉的偏移量要与 swipeState 的 true 对应，当偏移距离为 swipeItemWidth 时 swipeState 的 value 就会变成 true，swipeState 的 value 我们会用到侧拉组件的显示与否中去。这里的 anchors 我们一会用到 swipeable () 中去。接下来我们往里填充体内容和侧拉内容就行了。
+## 3. 主体内容
 代码如下：
 ```kotlin
 Box(
@@ -103,9 +101,9 @@ Box(
 ```
 代码中的 weight 在侧拉组件显示和隐藏时，会产生挤压效果，我们一会会看到。
 offset 会使主体内容随手的滑动产生偏移效果。
-swipeable() 前两个参数，我们刚才定义过了；thresholds 常用作定制不同锚点间吸附效果的临界阈值，常用有 FixedThreshold(Dp) 和FractionalThreshold(Float) 两种；orientation 没啥好讲的吧，这里肯定是水平啊（大家有兴趣也可以试试垂直）。
+swipeable () 前两个参数，我们刚才定义过了；thresholds 常用作定制不同锚点间吸附效果的临界阈值，常用有 FixedThreshold (Dp) 和 FractionalThreshold (Float) 两种；orientation 没啥好讲的吧，这里肯定是水平啊（大家有兴趣也可以试试垂直）。
 到这我们主体内容部分就完成了，它会进行偏移。
-## 4.侧拉内容
+## 4. 侧拉内容
 终于到我们的主角侧拉组件了。因为等下我们会用到两次侧拉组件（为什么呢？一会就知道了），所以我们把他抽离出来：
 
 ```kotlin
@@ -125,7 +123,7 @@ private fun RowScope.SwipeChild(
     }
 }
 ```
-这里面内容比较简单，当允许显示并且 swipeState 的 value 为 true 即主体内容滑动偏移达到我们设定的值 时，就显示侧拉内容。但是，其实这里漏了一个东西，就是当我们点击完侧拉内容后，它应该隐藏起来，那应该怎么做呢，加上它就行了：
+这里面内容比较简单，当允许显示并且 swipeState 的 value 为 true 即主体内容滑动偏移达到我们设定的值时，就显示侧拉内容。但是，其实这里漏了一个东西，就是当我们点击完侧拉内容后，它应该隐藏起来，那应该怎么做呢，加上它就行了：
 
 ```kotlin
 scope.launch {
@@ -165,7 +163,7 @@ private fun RowScope.SwipeChild(
     }
 }
 ```
-## 5.组合拼装
+## 5. 组合拼装
 我们已经把每一部分都写好的，接下来我们将它们组合起来就行了：
 
 ```kotlin
@@ -181,8 +179,8 @@ private fun RowScope.SwipeChild(
         }
     }
 ```
-这里就可以看到我刚才说的用到两次了，因为在 Row 中时按我们写的顺序 从左往右排的，而我们的侧拉组件又要在两侧显示，所以就只能如此了（不知道有没什么好的办法，可以教教我不）。
-## 6.结果测验
+这里就可以看到我刚才说的用到两次了，因为在 Row 中时按我们写的顺序从左往右排的，而我们的侧拉组件又要在两侧显示，所以就只能如此了（不知道有没什么好的办法，可以教教我不）。
+## 6. 结果测验
 在前面我们已经把所有内容都讲完了（[完整代码](#index)在这），最后来测验一些，测验代码（调用它就行）：
 
 ```kotlin
@@ -214,15 +212,15 @@ fun Main() {
 ```
 效果展示：
 从右往左拉：
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0ea151118d311e6ed7ee3afa6ddbbd58.gif#pic_center)
+![[assets/07a1ce5d6038520b01bb450ff6a7422d_MD5.gif]]
 从左往右拉：
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/55174a40a98b2ee5403f84ed06c79bb0.gif#pic_center)
+![[assets/43755180ca6ac71ece0343e53847a912_MD5.gif]]
 点击侧拉组件隐藏：
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2a557591044f8dddad4583bc40297188.gif#pic_center)
+![[assets/9a2a56d031d3e5995f124124d6159bf0_MD5.gif]]
 
 ---
 
-# 三、<span id="index">完整代码</span>
+# 三、<a id="index">完整代码</a>
 这里放上核心代码，里面带有注释来解释：
 ```kotlin
 import androidx.compose.animation.AnimatedVisibility

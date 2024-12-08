@@ -3,8 +3,6 @@ title: Compose Text + Canvas 写个验证码
 categories: [ Android ]
 tags: [ Android ]
 ---
-
-
 # 前言
 在搞登录功能时，想弄个登录验证码，在网上溜了一圈好像还没有用 Compose 写过的（可能是没搜到），既然没有就自己搞一个吧。
 大家如果没时间或者基础好可以直接去[完整代码](#index) 看核心代码，因为实现比较简单，也比较重复。当然我也是很欢迎你阅读我的文章和我一步步学习的。
@@ -12,16 +10,16 @@ tags: [ Android ]
 ---
 
 # 一、工具选择
-网上大部分都是用 paint 来实现的，但是在 Compose 里 paint 的属性好像有所减少，就比如 textSkewX 就没有（下为 Compose ）：![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e37f2944ad06cef80067f04d156f9d59.png#pic_center)
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f841d47e2622a127346360fa47433895.png#pic_center)
+网上大部分都是用 paint 来实现的，但是在 Compose 里 paint 的属性好像有所减少，就比如 textSkewX 就没有（下为 Compose ）：![[assets/88458b38fa1061e38b9b6b9f6b1fd0c3_MD5.png]]
+![[assets/d2baed79c7520c8d2ca287894a120864_MD5.png]]
 既然这样用 paint 就不大好了。最后想到，验证码一般包括字母和数字，那就直接用最简单的 Text 加 canvas 来呗。
 
 ---
 # 二、基本思想
 验证码最重要的是随机性，那我们如何做到随机呢？这不是很简单吗，用 Random 啊。那验证码的样式如何做到不同呢？这不是很简单吗，用 Random + 属性啊。所以我们只要罗列 Text 的属性，配上 Random 就能得到验证码的基本样式了：
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2954abd27e8099612572e0dc724c4fec.png#pic_center)
+![[assets/0de08cf989759b5cac994ad21c0dd895_MD5.png]]
 那上面说到的 canvas 拿来干嘛呢，它其实是用来画干扰线的，最后的效果是这样的（应该还行）：
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a70abaf9c8146a443e5ee30b70554b7a.png#pic_center)
+![[assets/d34d48f12c27fb34a698d09de735871d_MD5.png]]
 可能有更好的想法，但是我不会。下面我们来举一例讲讲具体实现。
 
 ---
@@ -63,7 +61,7 @@ private val codeList = listOf(
     )
 ```
 我们用数字和字母进行验证，在后面我会随机挑选 codeNum 个用来作为验证码。
-## 2、Text设置
+## 2、Text 设置
 根据上面所说的 Random + 属性的想法。我们先得到 Text 的所有属性：
 
 ```kotlin
@@ -96,7 +94,7 @@ Text(
     )
 ```
 下面是各个用到的属性的所有值，大家如果想看可以前往[完整代码](#index)先偷窥一下再回头来继续学习。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/03498d656321546fed467ac8bc886552.png#pic_center)
+![[assets/c82782c80ba44814f50e8e7db2ce1fb9_MD5.png]]
 加上 Random ：
 
 ```kotlin
@@ -134,15 +132,15 @@ Text(
     // style =,
 )
 ```
-大家一定要注意加上 topLeft.x 和 topLeft.y，验证码不能老待在左上角吧。这里的 Code 是一个单例类：
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ded510c894b596c3a2a5ed5801face4b.png)
+大家一定要注意加上 topLeft. x 和 topLeft. y，验证码不能老待在左上角吧。这里的 Code 是一个单例类：
+![[assets/5662eb121847b5f088ed2916c80aa4c3_MD5.png]]
 用于封装方法便于使用。
 最后还要加上：
 
 ```kotlin
 repeat(codeNum) {}
 ```
-我们需要 codeNum 个字符，而且每次应该从 Code.getCode() 的到一个字符，不然的话所有字符的样式都是相同的。
+我们需要 codeNum 个字符，而且每次应该从 Code.getCode () 的到一个字符，不然的话所有字符的样式都是相同的。
 到这我们 Text 就实现好了。
 ## 3、干扰线的实现
 先放代码：
@@ -186,24 +184,24 @@ repeat(disturbLineNum) {
     }
 }
 ```
-这里我们首先得到起点和终点的位置，之后 drawLine 就轻而易举了。这里面的注释大家还是要注意的，和 Text 一样 topLeft.x 和 topLeft.y 不能忘，不然要怎么干扰 Text 呢。还有一点使用时 disturbLineNum 千万不要设置太大，不然你就是为难用户：
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/609f0c9e4652b2e1751c4373f4a09d4d.png#pic_center)
+这里我们首先得到起点和终点的位置，之后 drawLine 就轻而易举了。这里面的注释大家还是要注意的，和 Text 一样 topLeft. x 和 topLeft. y 不能忘，不然要怎么干扰 Text 呢。还有一点使用时 disturbLineNum 千万不要设置太大，不然你就是为难用户：
+![[assets/6e758bd5cc1c95be7eaa8af59a8b2158_MD5.png]]
 这验证码是怕人看见了吗？
 
 ## 4、Code 单例类中的注意点
-在 getColor() 中的不透明度不能设置太小（我直接不设置），显示的不是很清楚，比如：
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1553f87f53b0ae1f5487b4ae3e1b7883.png#pic_center)
+在 getColor () 中的不透明度不能设置太小（我直接不设置），显示的不是很清楚，比如：
+![[assets/255bb51014ed7d309a4a8b53fc93c9be_MD5.png]]
 看的清吗？(好像可以哦)
-在 getColorList() 里面，random的下限一定要大于1，不然：
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/8125df0b5f69ff28db4df370297f43a9.png#pic_center)
+在 getColorList () 里面，random 的下限一定要大于 1，不然：
+![[assets/1140062832b6b8a94eec51f5878e259e_MD5.png]]
 红红的可怕吗？
-这里是因为 Brush.linearGradient() 要求要有两种以上的颜色，不然和 Color 纯色有什么区别。
+这里是因为 Brush.linearGradient () 要求要有两种以上的颜色，不然和 Color 纯色有什么区别。
 对 Code 单例类好奇，可以先去[完整代码](#index) 看看再回头来继续学习，其实也差不多结束了。
 另外，在 Code 单例类里面的 dp 、sp 、px 的转换大家可以学习一下，在此之前我还不会呢。
 ## 5、初步测试
 到这里我们已经可以得到验证码的样子了，只是还没有功能，我们下一步再实现，先来测试一下传参之后能否使用：
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b0992d6e07c933b56e7bf5958fdd5dc4.png#pic_center)
-很明显是没什么问题嘛，而且验证码还这么好看（WDBMNUM1）。接着我们实现功能，毕竟验证码再好看也不是拿来看的嘛。
+![[assets/06f83fe9c258d740a582d26e58040934_MD5.png]]
+很明显是没什么问题嘛，而且验证码还这么好看（WDBMNUM 1）。接着我们实现功能，毕竟验证码再好看也不是拿来看的嘛。
 ## 6、功能实现
 要实现验证功能我们先要保存验证码，我们可以用 ViewModel 进行储存随机生成的验证码，随机生成的验证码要连成字符串，这样做：
 
@@ -234,7 +232,7 @@ class MyViewModel : ViewModel() {
     fun verify(input: String) = input.lowercase() == verifyCode
 }
 ```
- verify() 用于验证。
+ verify () 用于验证。
  验证使用：
 
 ```kotlin
@@ -279,18 +277,18 @@ fun Main(viewModel: MyViewModel) {
     }
 }
 ```
-viewModel 在 activity 中构建后传入，在使用 TextField 我遇到过输入不能显示的问题，有兴趣可以移步[Compose | TextField 无法显示输入内容](https://blog.csdn.net/WdbM_/article/details/123968236)看看，最好可以帮我解答一下，哈哈。看看我们的结果吧：
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a199f648a93e905a811f39c03cfb9f73.gif#pic_center)
+viewModel 在 activity 中构建后传入，在使用 TextField 我遇到过输入不能显示的问题，有兴趣可以移步 [Compose | TextField 无法显示输入内容](https://blog.csdn.net/WdbM_/article/details/123968236)看看，最好可以帮我解答一下，哈哈。看看我们的结果吧：
+![[assets/23e0aaef53ccb2a96be81d808e9fd634_MD5.gif]]
 最后还有一个功能，就是我们平常都能看到点击验证码会给一个新的验证码。这要怎么实现呢？这不是很简单吗，利用 Compose 的响应式编程啊，像这样：
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2e8611de4afdb31a48ec5332fd143846.png)
+![[assets/d38efc3d34acf2a01fe9c488bee80fa5_MD5.png]]
 和点击有关的加上括号一共也就 7 行，这么短能实现吗，我们看看结果：
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/64cac2b332f8ff7ad0e149348fc73a90.gif#pic_center)
-敢放出来当然能实现啦。这里要注意最后面的 flag 虽然像旗一样插在那什么都没干，但是我们不能删去它，它就是响应式编程的精髓，当程序检测到它变化时就会进行重绘。这里的 remember 和 mutableStateOf 要是不懂可以看看我另一篇文章[Compose | remember、mutableStateOf的使用](https://blog.csdn.net/WdbM_/article/details/123922729)比较基础，要是写的不好也请指教。
+![[assets/eef6307e24ce460bf62742c774e842cf_MD5.gif]]
+敢放出来当然能实现啦。这里要注意最后面的 flag 虽然像旗一样插在那什么都没干，但是我们不能删去它，它就是响应式编程的精髓，当程序检测到它变化时就会进行重绘。这里的 remember 和 mutableStateOf 要是不懂可以看看我另一篇文章 [Compose | remember、mutableStateOf的使用](https://blog.csdn.net/WdbM_/article/details/123922729)比较基础，要是写的不好也请指教。
 
 到这我们功能也实现啦。
 
 ---
-# 四、<span id="index">完整代码</span>
+# 四、<a id="index">完整代码</a>
 这里就放一下核心的代码，就不往 Github 上放了：
 
 ```kotlin
