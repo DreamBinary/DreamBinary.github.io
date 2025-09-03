@@ -1,7 +1,7 @@
 ---
 title: Clion + Keil5 写stm32
 categories: [ blog ]
-tags: [ blog stm ]
+tags: [ stm ]
 description: 配置Clion用于stm32开发
 ---
 ---

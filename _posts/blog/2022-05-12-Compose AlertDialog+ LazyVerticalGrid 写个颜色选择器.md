@@ -1,7 +1,7 @@
 ---
 title: Compose AlertDialog+ LazyVerticalGrid 写个颜色选择器
 categories: [ blog ]
-tags: [ blog Android ]
+tags: [ Android ]
 ---
 # 前言
 
