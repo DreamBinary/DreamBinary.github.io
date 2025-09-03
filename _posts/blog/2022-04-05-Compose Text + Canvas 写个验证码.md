@@ -1,7 +1,7 @@
 ---
 title: Compose Text + Canvas 写个验证码
-categories: [ Android ]
-tags: [ Android ]
+categories: [ blog ]
+tags: [ blog Android ]
 ---
 # 前言
 在搞登录功能时，想弄个登录验证码，在网上溜了一圈好像还没有用 Compose 写过的（可能是没搜到），既然没有就自己搞一个吧。

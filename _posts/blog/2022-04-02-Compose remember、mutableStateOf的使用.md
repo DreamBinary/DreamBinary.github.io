@@ -1,7 +1,7 @@
 ---
 title: Compose remember、mutableStateOf的使用
-categories: [ Android ]
-tags: [ Android ]
+categories: [ blog ]
+tags: [ blog Android ]
 ---
 ---
 

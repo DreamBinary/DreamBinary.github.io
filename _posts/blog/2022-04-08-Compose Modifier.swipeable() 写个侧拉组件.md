@@ -1,7 +1,7 @@
 ---
 title: Compose Modifier.swipeable() 写个侧拉组件
-categories: [ Android ]
-tags: [ Android ]
+categories: [ blog ]
+tags: [ blog Android ]
 ---
 ---
 # 前言
