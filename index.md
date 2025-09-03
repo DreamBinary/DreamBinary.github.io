@@ -1,10 +1,7 @@
 ---
-# the default layout is 'page'
-title: AboutMe
-icon: fas fa-info-circle
-order: 4
+layout: page
+permalink: /
 ---
-
 ## Hi there 👋 I'm DreamBinary
 
 #### 🧑‍💻 A Computer Science student at FZU and will pursue a Master's degree at XMU, and now I'm interning.
@@ -20,3 +17,5 @@ order: 4
 ![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=DreamBinary)
 
 ![DreamBinary's GitHub stats](https://github-readme-stats.vercel.app/api?username=DreamBinary&show_icons=true&theme=radical)
+
+
