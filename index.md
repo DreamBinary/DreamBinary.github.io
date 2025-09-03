@@ -4,7 +4,7 @@ permalink: /
 ---
 ## Hi there 👋 I'm DreamBinary
 
-#### 🧑‍💻 A Computer Science student at FZU and will pursue a Master's degree at XMU, and now I'm interning.
+#### 🧑‍💻 I'm a current Master's student in the MAC Lab at XMU. Previously, I completed my undergraduate studies at FZU and had internships at AgiBot and DeepWisdom.
 
 #### 📱 I used to enjoy mobile development and have developed several Android or iOS apps using native development or the Flutter framework. Therefore, I am proficient in Kotlin, Swift, Dart, and other programming languages used for mobile development.
 
